@@ -8,10 +8,7 @@ on:
   workflow_dispatch:
 jobs:
   zap_scan:
-    runs-on: ubuntu-20.04
-    permissions: 
-      issues: write
-      security-events: write
+    runs-on: ubuntu-latest
     name: Scan the webapplication
     steps:
       - name: Checkout
@@ -23,7 +20,6 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           docker_name: 'owasp/zap2docker-stable'
-          #target: 'https://www.zaproxy.org/'
           target: 'http://127.0.0.1:3000/'
           #rules_file_name: '.zap/rules.tsv'
           cmd_options: '-a'
