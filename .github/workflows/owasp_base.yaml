@@ -9,7 +9,7 @@ on:
 jobs:
   zap_base_scan:
     name : web application base_scan
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     permissions: 
       issues: write
       security-events: write
