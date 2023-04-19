@@ -10,9 +10,7 @@ jobs:
   zap_base_scan:
     name : web application base_scan
     runs-on: ubuntu-20.04
-    permissions: read-all|write-all
-      #issues: write
-      #security-events: write
+    permissions: write-all
     steps:
       - name: Checkout
         uses: actions/checkout@v2
