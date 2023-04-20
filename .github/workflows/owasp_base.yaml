@@ -17,6 +17,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           docker_name: 'owasp/zap2docker-stable'
           target: 'http://localhost:3000'
+          network: zapnet
           #target: http://$(ip -f inet -o addr show docker0 | awk '{print $4}' | cut -d '/' -f 1):3000
           #rules_file_name: '.zap/rules.tsv'
           cmd_options: '-a -j -d -T 5 -m 2'
