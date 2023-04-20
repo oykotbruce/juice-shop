@@ -11,10 +11,10 @@ jobs:
         with:
           ref: master
       - name: ZAP Scan
-        uses: zaproxy/action-baseline@v0.7.0
+        uses: zaproxy/action-baseline@v0.6.1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           docker_name: 'owasp/zap2docker-stable'
-          target: 'http://127.0.0.1'
+          target: 'http://127.0.0.1:3000'
           #rules_file_name: '.zap/rules.tsv'
-          cmd_options: '-P 3000:3000'
+          cmd_options: '-a -d -T 5 -m 2'
