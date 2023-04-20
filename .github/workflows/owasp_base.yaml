@@ -19,4 +19,4 @@ jobs:
           target: 'http://localhost:3000'
           #target: 'http://$(ip -f inet -o addr show docker0 | awk '{print $4}' | cut -d '/' -f 1):3000'
           #rules_file_name: '.zap/rules.tsv'
-          cmd_options: '-a -d -T 5 -m 2 -z --net wordsmith_default'
+          cmd_options: '-a -d -T 5 -m 2 -z --net "wordsmith_default"'
