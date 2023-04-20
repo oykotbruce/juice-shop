@@ -4,7 +4,7 @@ on:
 jobs:
   zap_scan:
     runs-on: ubuntu-latest
-    permissions: write-all
+    #permissions: write-all
     name: Scan the webapplication
     steps:
       - name: Checkout
@@ -16,8 +16,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           docker_name: 'owasp/zap2docker-stable'
-          net: zapnet
-          target: 'http://localhost:3000'
-          #target: 'http://$(ip -f inet -o addr show docker0 | awk '{print $4}' | cut -d '/' -f 1):3000'
+          #target: 'http://localhost:3000'
+          target: 'http://$(ip -f inet -o addr show docker0 | awk '{print $4}' | cut -d '/' -f 1):3000'
           #rules_file_name: '.zap/rules.tsv'
           cmd_options: '-a -d -T 5 -m 2'
