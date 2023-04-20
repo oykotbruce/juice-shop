@@ -5,8 +5,6 @@ jobs:
   zap_scan:
     runs-on: ubuntu-latest
     name: Scan the webapplication
-    env:
-      localAddr : $(ip -f inet -o addr show docker0 | awk '{print $4}' | cut -d '/' -f 1)
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -17,6 +15,6 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           docker_name: 'owasp/zap2docker-stable'
-          target: "http://$localAddr:3000"
+          target: "http://127.0.0.1:3000"
           #rules_file_name: '.zap/rules.tsv'
           cmd_options: '-a'
