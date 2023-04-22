@@ -17,7 +17,20 @@ jobs:
       contents: read
       security-events: write    
     uses: bruce-wh-li/startup-sample-project-aws-containers/.github/workflows/codeql.yaml@main
-
+    
+  sonar-repo-scan:
+    permissions:
+      actions: read
+      contents: read
+      security-events: write    
+    uses: oykotbruce/juice-shop/.github/workflows/sonar-scanner.yaml@main
+    with:
+      ORG: bli-sonar-org
+      PROJECT_KEY: bli-sonar-org_my-juice-shop
+      URL: https://sonarcloud.io
+    secrets:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      
   trivy-image-scan:  #docker image scan
     uses: bruce-wh-li/startup-sample-project-aws-containers/.github/workflows/trivy-container.yaml@main
     with:
