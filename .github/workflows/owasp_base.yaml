@@ -1,4 +1,6 @@
 name: zap_baseline_scan
+env: 
+  APP_IP_ADDR : 127.0.0.1
 on:
   workflow_dispatch:
 jobs:
@@ -19,8 +21,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           docker_name: 'owasp/zap2docker-stable'
-          #target: 'http://172.17.0.1:3000'
-          #target: 'http://www.itsecgames.com'
-          target: http://(ip -f inet -o addr show docker0 | awk '{print $4}' | cut -d '/' -f 1):3000
+          target: 'http://www.itsecgames.com'
+          #target: http://(ip -f inet -o addr show docker0 | awk '{print $4}' | cut -d '/' -f 1):3000
           #rules_file_name: '.zap/rules.tsv'
           cmd_options: '--autooff -j -d -T 5 -m 2'
