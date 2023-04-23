@@ -36,7 +36,32 @@ jobs:
     with:
       IMAGE: brucecruise/bcgov-nginx-demo
       TAG: latest
-           
+  
+  trivy-image-scan2:  #docker image scan         
+    name: Trivy Image scan
+    permissions: write-all
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Trivy Vulnerability Scan
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: brucecruise/bcgov-nginx-demo:latest
+          #format: table
+          format: 'sarif'
+          output: 'trivy-vuln-results.sarif'
+          exit-code: '0'
+          ignore-unfixed: true
+          vuln-type: os,library
+          severity: 'CRITICAL,HIGH'
+
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: 'trivy-vuln-results.sarif'           
   trivy-iac-scan:
     name: Trivy IaC scan
     permissions: write-all
@@ -133,7 +158,7 @@ jobs:
     if: failure()
     runs-on: ubuntu-latest
     needs:  
-      - trivy-image-scan  
+      - trivy-image-scan2  
       - checkov-scan  
       - codeql-scan   
       - trivy-iac-scan  
@@ -158,7 +183,7 @@ jobs:
   rocketchat-workflow-successful-status: 
     name: Post workflow successful status to RC  
     needs:  
-      - trivy-image-scan  
+      - trivy-image-scan2  
       - checkov-scan  
       - codeql-scan   
       - trivy-iac-scan  
